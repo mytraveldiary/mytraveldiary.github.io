@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Exchange Diary — Benoit Quaranta</title>
+  <meta name="description" content="My exchange semester in Asia: Daegu, Seoul, Vietnam and China — a DIY travel diary with a map, a trashbook and stickers." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Abril+Fatface&family=Caveat:wght@500;700&family=Permanent+Marker&family=Special+Elite&family=Jua&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <link rel="stylesheet" href="style.css?v=5" />
+  <link rel="stylesheet" href="extras.css?v=9" />
+</head>
+<body>
+
+  <!-- ============ Vertical menu (left) ============ -->
+  <nav class="rail" aria-label="Main">
+    <a class="stamp-logo" href="#home" aria-label="Back to top">
+      <span>B.Q.</span><small>EXCHANGE<br>2024</small>
+    </a>
+    <ul>
+      <li><a class="rail-item r1" href="#trashbook">Trashbook</a></li>
+      <li><a class="rail-item r2" data-link="youtube" target="_blank" rel="noopener">Videos</a></li>
+      <li><a class="rail-item r3" data-link="instagram" target="_blank" rel="noopener">Socials</a></li>
+    </ul>
+    <a class="rail-back" data-link="portfolio" title="Back to my portfolio">← portfolio</a>
+  </nav>
+
+  <main>
+    <!-- ============ Hero: the vlog playing behind ============ -->
+    <section class="hero" id="home">
+      <video class="hero-video" id="vlog" autoplay muted loop playsinline preload="auto" poster="assets/vlog-poster.webp">
+        <source src="assets/vlog.webm" type="video/webm" />
+      </video>
+      <div class="hero-shade"></div>
+
+      <div class="hero-content">
+        <p class="kicker">a diy travel diary by <b>benoit quaranta</b></p>
+        <h1 class="ransom" data-ransom="EXCHANGE DIARY" aria-label="Exchange Diary"></h1>
+        <p class="route-line">Daegu <i>→</i> Seoul <i>→</i> Vietnam <i>→</i> China</p>
+        <p class="hand">one semester at KNU, a lot of noodles, 9 peaks &amp; way too many photos.</p>
+        <div class="hero-actions">
+          <a class="btn-paper" href="#map">✎ follow the route</a>
+          <button class="btn-paper dark" id="sound" aria-pressed="false">🔈 sound on</button>
+        </div>
+      </div>
+
+      <img class="hero-seal" src="assets/knu-seal.webp" alt="Kyungpook National University seal" />
+      <a class="hero-polaroid" data-link="youtube" target="_blank" rel="noopener">
+        <img src="assets/snap-vlog-korea.webp" alt="Vlog Korea thumbnail" />
+        <span>▶ the full vlog</span>
+        <i class="tape"></i>
+      </a>
+      <div class="scroll-hint">scroll<br>↓</div>
+      <div class="torn torn-bottom"></div>
+    </section>
+
+    <!-- ============ Interactive map ============ -->
+    <section class="map-section paper" id="map">
+      <header class="section-head">
+        <h2 class="ransom small" data-ransom="THE ROUTE" aria-label="The route"></h2>
+        <p class="hand">click a ticket (or a stamp on the map) to jump there</p>
+      </header>
+      <div class="map-wrap">
+        <div class="map-frame">
+          <i class="tape t1"></i><i class="tape t2"></i><i class="tape t3"></i>
+          <div id="leaflet" aria-label="Map of the trip"></div>
+          <button class="map-lock" id="map-lock">click to explore the map</button>
+        </div>
+        <ol class="tickets" id="tickets"></ol>
+      </div>
+    </section>
+
+    <!-- ============ Photo wall (photos can be ripped off!) ============ -->
+    <section class="trash-section kraft" id="photos">
+      <div class="torn torn-top"></div>
+      <header class="section-head">
+        <h2 class="ransom small" data-ransom="PHOTO WALL" aria-label="Photo wall"></h2>
+        <p class="hand">grab a photo, rip it off the wall and let it go… oops. psst: stickers are down there ↘</p>
+        <div class="head-actions">
+          <a class="btn-paper" href="#trashbook">📖 open my trashbook</a>
+          <button class="btn-paper dark" id="repin" hidden>📌 pin the photos back</button>
+        </div>
+      </header>
+      <div class="board" id="board"></div>
+    </section>
+
+    <footer class="foot paper">
+      <p class="hand">made with glue, tape &amp; javascript — <a data-link="portfolio">back to my portfolio</a></p>
+    </footer>
+  </main>
+
+  <!-- ============ Trashbook: a book to flip through ============ -->
+  <section class="book-view" id="book-view" aria-label="Trashbook" hidden>
+    <button class="book-close" id="book-close" aria-label="Close the trashbook">✕ close</button>
+    <header class="book-head">
+      <h2 class="ransom small" data-ransom="TRASHBOOK" aria-label="Trashbook"></h2>
+      <p class="hand">my real exchange scrapbook, scanned page by page — 98 pages of tickets, notes &amp; stickers</p>
+    </header>
+    <div class="book-stage">
+      <div class="book closed" id="book"></div>
+    </div>
+    <nav class="book-nav">
+      <button id="book-prev" aria-label="Previous page">← prev</button>
+      <span id="book-count">cover</span>
+      <button id="book-next" aria-label="Next page">next →</button>
+    </nav>
+    <p class="book-help hand">click the right page to turn it · ←/→ keys · 🔍 to zoom on a scan</p>
+  </section>
+
+  <!-- ============ Sticker book ============ -->
+  <button class="sticker-toggle" id="sticker-toggle" aria-expanded="false" aria-controls="sticker-sheet">
+    <span>stickers</span>
+  </button>
+  <aside class="sticker-sheet" id="sticker-sheet" aria-label="Sticker sheet" hidden>
+    <header>
+      <b>sticker sheet</b>
+      <small>click one, move, click to stick.<br>click a stuck sticker to peel it off.</small>
+    </header>
+    <div class="sheet-grid" id="sheet-grid"></div>
+    <footer>
+      <span class="bin" id="bin">🗑 drop here to throw away</span>
+      <button id="clear-stickers">clear all</button>
+    </footer>
+  </aside>
+  <div id="sticker-layer" aria-hidden="true"></div>
+
+  <!-- lightbox -->
+  <div class="lightbox" id="lightbox" hidden>
+    <figure><img alt="" /><figcaption></figcaption></figure>
+  </div>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
+  </svg>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="stickers.js?v=2"></script>
+  <script src="app.js?v=15"></script>
+</body>
+</html>
